@@ -2,28 +2,28 @@
 
 namespace GildedRose
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {            
-            Inventory inventory = new Inventory();
+            var inventory = new Inventory();
             
             foreach (var item in inventory.Items)
             {
-                Console.WriteLine(item.Name + "... \n");
-                Console.WriteLine(item.Quality + "... \n");
-                Console.WriteLine(item.SellIn + "... \n");
+                Console.WriteLine("Item Name: " + item.Name + "\n");
+                Console.WriteLine("Item Quality: " + item.Quality + "\n");
+                Console.WriteLine("Item SellIn: " + item.SellIn + "\n");
             }
             
             inventory.UpdateQuality();
 
-            Console.WriteLine("...UPDATING... \n \n");
+            Console.WriteLine("\n ...UPDATING... \n \n");
             
             foreach (var item in inventory.Items)
             {
-                Console.WriteLine(item.Name + "... \n");
-                Console.WriteLine(item.Quality + "... \n");
-                Console.WriteLine(item.SellIn + "... \n");
+                Console.WriteLine("Item Name: " + item.Name + "\n");
+                Console.WriteLine("Item Quality: " + item.Quality + "\n");
+                Console.WriteLine("Item SellIn: " + item.SellIn + "\n");
             }
 
             Console.ReadKey();

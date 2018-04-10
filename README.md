@@ -2,15 +2,15 @@
 
 ## Description
 
-Your task is to add the new feature to our system so that we can begin selling a new category of items. First an introduction to our system:
+Your task is to add the new feature to our system so that we can begin selling a new category of items.
 
-## Basic Requirements
+## Basic Existing Requirements
 
  - All items have a SellIn value which denotes the number of days we have to sell the item
  - All items have a Quality value which denotes how valuable the item is
  - At the end of each day our system lowers both values for every item
 
-## Specific Requirements
+## Specific Existing Requirements
 
  - Once the sell by date has passed, Quality degrades twice as fast
  - The Quality of an item is never negative

@@ -11,8 +11,8 @@ namespace GildedRose
         {
             return !item.IsAgedBrie() && !item.IsBackstagePass();
         }
-        
-        public static bool IncreasesWithAge(this Item item)
+
+        private static bool IncreasesWithAge(this Item item)
         {
             return item.IsAgedBrie() || item.IsBackstagePass();
         }
@@ -55,7 +55,7 @@ namespace GildedRose
             return item.DecreasesWithAge() && item.QualityIsGreaterThan(0) && !item.IsLegendary();
         }
 
-        public static void IncreaseQuality(this Item item)
+        private static void IncreaseQuality(this Item item)
         {
             if (item.QualityIsLessThan(50))
             {
@@ -86,7 +86,7 @@ namespace GildedRose
             }
         }
 
-        public static void IncreaseBackstagePassQuality(this Item item)
+        private static void IncreaseBackstagePassQuality(this Item item)
         {
             if (item.IsBackstagePass() && item.QualityIsLessThan(50))
             {
@@ -101,8 +101,8 @@ namespace GildedRose
                 }
             }
         }
-        
-        public static void ExpireBackstagePass(this Item item)
+
+        private static void ExpireBackstagePass(this Item item)
         {
             if (item.IsBackstagePass())
             {
@@ -115,9 +115,34 @@ namespace GildedRose
             return item.Name.Contains("Conjured");
         }
 
-        public static bool HasExpired(this Item item)
+        private static bool HasExpired(this Item item)
         {
             return item.SellInIsLessThan(0);
+        }
+
+        public static void DoQualityDecreases(this Item item)
+        {
+            item.DecreaseQuality();
+            item.DecreaseConjuredQuality();
+        }
+
+        public static void DoQualityIncreases(this Item item)
+        {
+            if (item.IncreasesWithAge())
+            {
+                item.IncreaseQuality();
+                item.IncreaseBackstagePassQuality();
+                item.IncreaseAgedBrie();
+            }
+        }
+
+        public static void ExpireItems(this Item item)
+        {
+            if (item.HasExpired())
+            {
+                item.DecreaseQuality();
+                item.ExpireBackstagePass();
+            }
         }
     }
 }

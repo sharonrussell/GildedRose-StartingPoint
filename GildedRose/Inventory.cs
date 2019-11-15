@@ -5,6 +5,7 @@ namespace GildedRose
     public class Inventory
     {
         public readonly List<Item> Items;
+        public readonly ItemUpdater _ItemUpdater;
         
         public Inventory()
         {
@@ -22,29 +23,13 @@ namespace GildedRose
                 },
                 new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
             };
+            
+            _ItemUpdater = new ItemUpdater();
         }
 
         public void UpdateQuality()
         {
-            foreach (var item in Items)
-            {
-                item.DecreaseQuality();
-                item.DecreaseConjuredQuality();
-                item.DecreaseSellIn();
-                
-                if (item.IncreasesWithAge())
-                {
-                    item.IncreaseQuality();
-                    item.IncreaseBackstagePassQuality();
-                    item.IncreaseAgedBrie();
-                }
-                
-                if (item.HasExpired())
-                {
-                    item.DecreaseQuality();
-                    item.ExpireBackstagePass();
-                }
-            }
+            _ItemUpdater.Update(Items);
         }
     }
 }

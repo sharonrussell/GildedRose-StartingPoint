@@ -1,6 +1,3 @@
-using System.Net;
-using System.Runtime.CompilerServices;
-
 namespace GildedRose
 {
     public static class ItemExtensions
@@ -20,14 +17,14 @@ namespace GildedRose
             return item.IsAgedBrie() || item.IsBackstagePass();
         }
 
-        public static bool IsAgedBrie(this Item item)
+        private static bool IsAgedBrie(this Item item)
         {
             return item.Name == "Aged Brie";
         }
 
         public static void IncreaseAgedBrie(this Item item)
         {
-            if (item.SellinIsLessThan(0) && item.IsAgedBrie())
+            if (item.SellInIsLessThan(0) && item.IsAgedBrie())
             {
                 item.IncreaseQuality();
             }
@@ -53,7 +50,7 @@ namespace GildedRose
             }
         }
 
-        public static bool CanDecreaseQuality(this Item item)
+        private static bool CanDecreaseQuality(this Item item)
         {
             return item.DecreasesWithAge() && item.QualityIsGreaterThan(0) && !item.IsLegendary();
         }
@@ -76,7 +73,7 @@ namespace GildedRose
             return item.Quality < value;
         }
 
-        public static bool SellinIsLessThan(this Item item, int value)
+        private static bool SellInIsLessThan(this Item item, int value)
         {
             return item.SellIn < value;
         }
@@ -93,12 +90,12 @@ namespace GildedRose
         {
             if (item.IsBackstagePass() && item.QualityIsLessThan(50))
             {
-                if (item.SellinIsLessThan(11))
+                if (item.SellInIsLessThan(11))
                 {
                     item.IncreaseQuality();
                 }
 
-                if (item.SellinIsLessThan(6))
+                if (item.SellInIsLessThan(6))
                 {
                     item.IncreaseQuality();
                 }
@@ -120,7 +117,7 @@ namespace GildedRose
 
         public static bool HasExpired(this Item item)
         {
-            return item.SellinIsLessThan(0);
+            return item.SellInIsLessThan(0);
         }
     }
 }
